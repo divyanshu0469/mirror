@@ -13,7 +13,7 @@ import { useToast } from "@/hooks/use-toast";
 export default function Home() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const [devices, setDevices] = useState<MediaDeviceInfo[]>([]);
-  const [selectedDeviceId, setSelectedDeviceId] = useState<string | null>(null);
+  const [, setSelectedDeviceId] = useState<string | null>(null);
   const [hasCameraAccess, setHasCameraAccess] = useState<boolean>(false);
   const { toast } = useToast();
 
@@ -71,6 +71,7 @@ export default function Home() {
         getStream(videoDevices[0].deviceId);
       }
     } catch (err) {
+      console.log({ err });
       toast({
         title: "Device Enumeration Failed",
         description: "Could not list available devices.",
