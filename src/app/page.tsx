@@ -22,9 +22,19 @@ export default function Home() {
       try {
         if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
           const constraints: MediaStreamConstraints = {
-            video: deviceId ? { deviceId: { exact: deviceId } } : true,
+            video: {
+              deviceId: deviceId ? { exact: deviceId } : undefined,
+              width: { ideal: 2560 },
+              height: { ideal: 1440 },
+              frameRate: { ideal: 60 },
+            },
           };
           const stream = await navigator.mediaDevices.getUserMedia(constraints);
+
+          const track = stream.getVideoTracks()[0];
+          const capabilities = track.getCapabilities();
+          console.log("Camera capabilities:", capabilities);
+
           if (videoRef.current) {
             videoRef.current.srcObject = stream;
             videoRef.current.play();
@@ -116,7 +126,10 @@ export default function Home() {
               ))}
             </DropdownMenuContent>
           </DropdownMenu>
-          <video ref={videoRef} className="w-full bg-red-300"></video>
+          <video
+            ref={videoRef}
+            className="w-full aspect-video bg-black"
+          ></video>
         </>
       )}
     </div>
