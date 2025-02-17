@@ -196,6 +196,7 @@ const Home = () => {
             }
             setHasCameraAccess(true);
           } catch (fallbackErr) {
+            console.log({ fallbackErr });
             toast({
               title: "Camera Access Failed",
               description: "Could not access camera with fallback settings.",
@@ -230,6 +231,7 @@ const Home = () => {
           setIsFullscreen(true);
         })
         .catch((err) => {
+          console.log({ err });
           toast({
             title: "Fullscreen Failed",
             description: "Could not enter fullscreen mode.",
